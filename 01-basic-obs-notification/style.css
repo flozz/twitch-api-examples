@@ -1,0 +1,43 @@
+body, html {
+    /* Avoid to have a white rectangle in OBS */
+    background: transparent;
+}
+
+/**
+ * Notification
+ */
+.notification {
+    /* Position */
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+
+    /* Transition effect between initial and visible state */
+    transition: all 0.5s;
+
+    /* Appearance */
+    padding: 15px 20px;
+    font-family: sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    color: #333;
+    background: #fff;
+    border-bottom: #ff7700 solid 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/**
+ * Notification: initial state
+ */
+.notification {
+    transform: translate(0, 100px);
+    opacity: 0;
+}
+
+/**
+ * Notification: "visible" state
+ */
+.notification.visible {
+    transform: translate(0, 0);
+    opacity: 1;
+}
