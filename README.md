@@ -4,4 +4,4 @@ This repository contain examples that use Twitch APIs to display follow, sub, bi
 
 The examples are related to articles on my blog (in French) :
 
-* TODO
+* https://blog.flozz.fr/2021/01/05/decouverte-des-apis-twitch-1-creation-dapplications-et-integration-a-obs/
