@@ -4,4 +4,4 @@ This example shows how to implement Twitch authentication using the OAuth Implic
 
 This example is related to an article on my blog (in French):
 
-* TODO
+* https://blog.flozz.fr/2021/01/23/decouverte-des-apis-twitch-2-authentification/
