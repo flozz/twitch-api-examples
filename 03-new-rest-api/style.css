@@ -1,0 +1,60 @@
+html, body {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.alert {
+    position: fixed;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-bottom: #ff7700 solid 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.alert img {
+    width: 150px;
+}
+
+.alert-text {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 22pt;
+    font-family: Arial, sans-serif;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.alert-text-highlight {
+    font-weight: bold;
+    font-family: "Arial Black";
+    color: #ff7700;
+}
+
+.alert-text-animated {
+    display: block;
+    animation: stretch 1s infinite;
+}
+
+@keyframes stretch {
+  0% {
+      filter: brightness(0.9);
+      transform: scale(0.95);
+      letter-spacing: -2px;
+  }
+  50% {
+      filter: brightness(1.2);
+      transform: scale(1.05);
+      letter-spacing: 2px;
+  }
+  100% {
+      filter: brightness(0.9);
+      transform: scale(0.95);
+      letter-spacing: -2px;
+  }
+}
