@@ -6,7 +6,9 @@ const CLIENT_ID = "87wsws1qg0q5ey6mmcamkjgj6xz0vl";
 const REDIRECT_URI = "http://localhost:8000/";
 
 // The required scopes (none for now, we will see that in future examples)
-const SCOPES = [];
+const SCOPES = [
+    "user:read:email",
+];
 
 const helpers = {
 
@@ -46,6 +48,33 @@ const helpers = {
 
 };
 
+const request = {
+
+    // [Promise] Download (GET) a JSON from the fiven URL
+    getJson: function(url, params=null, headers={}) {
+        requestUrl = url;
+
+        if (params) {
+            requestUrl = `${url}?${helpers.encodeQueryString(params)}`
+        }
+
+        const req = new Request(requestUrl, {
+            method: "GET",
+            headers: headers,
+        });
+
+        return fetch(req)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                return response.json();
+            });
+    },
+
+};
+
 const twitch = {
 
     // Check if the user is already authenticated
@@ -65,6 +94,23 @@ const twitch = {
         const redirectUrl = `https://id.twitch.tv/oauth2/authorize?${helpers.encodeQueryString(params)}`;
         location.href = redirectUrl;
     },
+
+    // [Promise] Get the user ID from its nickname
+    // "trucmuche" -> 12345678
+    getUserId: function(username) {
+        const params = helpers.getUrlParams();
+        return request.getJson("https://api.twitch.tv/helix/users", {
+            login: username,
+        }, {
+            "client-id": CLIENT_ID,
+            "Authorization": `Bearer ${params["access_token"]}`,
+        }).then(function(data) {
+            if (data.data.length != 1) {
+                throw new Error("The API returned unexpected data");
+            }
+            return data.data[0].id;
+        });
+    }
 
 };
 
