@@ -110,7 +110,20 @@ const twitch = {
             }
             return data.data[0].id;
         });
-    }
+    },
+
+    // [Promise] Get the last followers for a given user ID.
+    getLastFollowers(userId) {
+        const params = helpers.getUrlParams();
+        return request.getJson("https://api.twitch.tv/helix/users/follows", {
+            to_id: userId,
+        }, {
+            "client-id": CLIENT_ID,
+            "Authorization": `Bearer ${params["access_token"]}`,
+        }).then(function(data) {
+            return data.data;
+        });
+    },
 
 };
 
