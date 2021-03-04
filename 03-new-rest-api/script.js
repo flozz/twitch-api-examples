@@ -77,6 +77,8 @@ const request = {
 
 const twitch = {
 
+    _lastFollowerId: null,
+
     // Check if the user is already authenticated
     isAuthenticated: function() {
         const params = helpers.getUrlParams();
@@ -123,6 +125,37 @@ const twitch = {
         }).then(function(data) {
             return data.data;
         });
+    },
+
+    // [Promise] Get new followers since last call for a given user ID.
+    getNewFollowers: function(userId) {
+        return twitch.getLastFollowers(userId)
+            .then(function(followers) {
+                // No followers yet
+                if (followers.length == 0) {
+                    twitch._lastFollowerId = -1;
+                    return [];
+                }
+
+                // First call
+                if (twitch._lastFollowerId === null) {
+                    twitch._lastFollowerId = followers[0].from_id;
+                    return [];
+                }
+
+                const result = [];
+
+                for (let i in followers) {
+                    if (followers[i].from_id === twitch._lastFollowerId) {
+                        break;
+                    }
+
+                    result.push(followers[i]);
+                }
+
+                twitch._lastFollowerId = followers[0].from_id;
+                return result;
+            });
     },
 
 };
