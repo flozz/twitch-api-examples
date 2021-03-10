@@ -50,7 +50,7 @@ const helpers = {
 
 const request = {
 
-    // [Promise] Download (GET) a JSON from the fiven URL
+    // [Promise] Download (GET) a JSON from the given URL
     getJson: function(url, params=null, headers={}) {
         requestUrl = url;
 
