@@ -15,6 +15,14 @@ html, body {
     background: #fff;
     border-bottom: #ff7700 solid 6px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s;
+    opacity: 0;
+    transform: translate(0, -50px) scale(0);
+}
+
+.alert.visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
 }
 
 .alert img {

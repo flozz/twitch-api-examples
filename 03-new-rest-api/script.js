@@ -46,6 +46,13 @@ const helpers = {
         return helpers.decodeQueryString(location.hash.slice(1));
     },
 
+    // [Promise] Wait the given amount of seconds before resolving the promise.
+    wait: function(seconds) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(resolve, seconds * 1000);
+        });
+    },
+
 };
 
 const request = {
@@ -158,6 +165,33 @@ const twitch = {
             });
     },
 
+};
+
+const alerts = {
+
+    _queue: Promise.resolve(),
+
+    newFollower(name) {
+        const divAlertFollower = document.getElementById("alert-follower");
+        const spanAlertFollowerName = document.getElementById("alert-follower-name");
+        const audioAlertSound = document.getElementById("alert-sound");
+
+        function _show() {
+            spanAlertFollowerName.innerText = name;
+            divAlertFollower.classList.add("visible");
+            audioAlertSound.play();
+        }
+
+        function _hide() {
+            divAlertFollower.classList.remove("visible");
+        }
+
+        alerts._queue = alerts._queue
+            .then(_show)
+            .then(helpers.wait.bind(null, 10))
+            .then(_hide)
+            .then(helpers.wait.bind(null, 1));
+    },
 };
 
 function main() {
