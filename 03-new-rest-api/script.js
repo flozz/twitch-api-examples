@@ -1,3 +1,6 @@
+// The user name / channel name
+const TWITCH_CHANNEL = "flozz_";
+
 // The ID of the application (provided when registering the app on
 // dev.twitch.tv)
 const CLIENT_ID = "87wsws1qg0q5ey6mmcamkjgj6xz0vl";
@@ -169,8 +172,10 @@ const twitch = {
 
 const alerts = {
 
+    // Alerts will be queued using this promise to only display one alert at time
     _queue: Promise.resolve(),
 
+    // Queue a new follower alert
     newFollower(name) {
         const divAlertFollower = document.getElementById("alert-follower");
         const spanAlertFollowerName = document.getElementById("alert-follower-name");
@@ -192,13 +197,32 @@ const alerts = {
             .then(_hide)
             .then(helpers.wait.bind(null, 1));
     },
+
 };
+
+// Query the Twitch API every 15s to get and display new followers
+function newFollowerPolling(userId) {
+
+    function _displayNewFollowers(newFollowers) {
+        for (let i in newFollowers) {
+            alerts.newFollower(newFollowers[i].from_name);
+        }
+    }
+
+    // Get new followers
+    twitch.getNewFollowers(userId)
+        .then(_displayNewFollowers);
+
+    // Call this function again in 15s
+    setTimeout(newFollowerPolling.bind(null, userId), 15 * 1000);
+}
 
 function main() {
     if (!twitch.isAuthenticated()) {
         twitch.authentication();
     } else {
-        // TODO
+        twitch.getUserId(TWITCH_CHANNEL)
+            .then(newFollowerPolling);
     }
 }
 
