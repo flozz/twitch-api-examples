@@ -87,7 +87,7 @@ const request = {
 
 const twitch = {
 
-    _lastFollowerId: null,
+    _lastFollowersIds: null,
 
     // Check if the user is already authenticated
     isAuthenticated: function() {
@@ -143,27 +143,30 @@ const twitch = {
             .then(function(followers) {
                 // No followers yet
                 if (followers.length == 0) {
-                    twitch._lastFollowerId = -1;
+                    twitch._lastFollowersIds = [];
                     return [];
                 }
 
                 // First call
-                if (twitch._lastFollowerId === null) {
-                    twitch._lastFollowerId = followers[0].from_id;
+                if (twitch._lastFollowersIds === null) {
+                    twitch._lastFollowersIds = [];
+                    for (const i in followers) {
+                        twitch._lastFollowersIds.push(followers[i].from_id);
+                    }
                     return [];
                 }
 
                 const result = [];
 
-                for (let i in followers) {
-                    if (followers[i].from_id === twitch._lastFollowerId) {
+                for (const i in followers) {
+                    if (twitch._lastFollowersIds.includes(followers[i].from_id)) {
                         break;
                     }
 
                     result.push(followers[i]);
+                    twitch._lastFollowersIds.push(followers[i].from_id);
                 }
 
-                twitch._lastFollowerId = followers[0].from_id;
                 return result;
             });
     },
