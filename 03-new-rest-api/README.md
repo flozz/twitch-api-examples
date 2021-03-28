@@ -1,3 +1,7 @@
-# 03 - Rest API: new followers notifications
+# 03 - Rest API: new follower notification
 
-TODO
+This example shows how to implement a "new follower" notification using the Twitch REST API.
+
+This example is related to an article on my blog (in French):
+
+* TODO

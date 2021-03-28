@@ -13,6 +13,7 @@ The examples are related to articles on my blog (in French), you can find the fi
 |-------------------------------------------------|-------------------------------------------------------------------------|------------------------------------------------------------------------|
 | ![](./01-basic-obs-notification/thumb.png)      | [01 - Basic OBS Notification](./01-basic-obs-notification/)             | Integration of a Web page in OBS to display a link at regular interval |
 | ![](./02-twitch-authentication-oauth/thumb.png) | [02 - Twitch Authentication (OAuth)](./02-twitch-authentication-oauth/) | Twitch authentication using the OAuth Implicite Code Flow              |
+| ![](./03-new-rest-api/thumb.png)                | [03 - Rest API: new follower notification](./03-new-rest-api/)          | Implementing a "new follower" notification using the Twitch REST API   |
 
 
 ## License
