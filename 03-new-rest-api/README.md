@@ -4,4 +4,4 @@ This example shows how to implement a "new follower" notification using the Twit
 
 This example is related to an article on my blog (in French):
 
-* TODO
+* https://blog.flozz.fr/2021/03/29/decouverte-des-apis-twitch-3-afficher-des-alertes-pour-les-nouveaux-followers/
